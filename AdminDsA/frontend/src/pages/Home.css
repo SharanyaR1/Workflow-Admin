@@ -1,0 +1,30 @@
+.home-page-container {
+    text-align: center; 
+    padding: 70px 0;
+  }
+  
+  h2 {
+    margin-bottom: 20px;
+    display: inline-block;
+  }
+  
+  .buttons-container {
+    margin-top: 20px;
+  }
+  
+  button {
+    padding: 10px;
+    margin: 5px;
+    width: 150px; 
+    background-color: #3498db;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  button:hover {
+    background-color: #2980b9;
+  }
+  

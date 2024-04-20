@@ -1,0 +1,46 @@
+.app {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.header {
+  background-color: #333;
+  color: #fff;
+  padding: 10px;
+  text-align: left;
+}
+
+.content {
+  display: flex;
+  flex: 1;
+}
+
+.left-menu {
+  width: 200px; /* Adjust width as needed */
+  background-color: #f0f0f0;
+}
+
+.page-content {
+  flex: 1;
+}
+table {
+  border-collapse: collapse;
+  width: 200%; /* Make the table wider */
+  margin: auto; /* Center the table */
+}
+
+th, td {
+  padding: 10px; /* Reduce padding for a more compact look */
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+th {
+  background-color: #2d61d2;
+  color: white;
+}
+
+tbody tr:nth-child(even) {
+  background-color: #f2f2f2;
+}

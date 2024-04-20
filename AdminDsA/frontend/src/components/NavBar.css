@@ -1,0 +1,42 @@
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    background-color: #817f7f;
+    color: rgb(6, 6, 6);
+  }
+  
+  .left-menu {
+    width: 200px;
+    background-color: #333;
+    padding: 5px;
+  }
+  
+  .left-menu ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .left-menu li {
+    margin-bottom: 10px;
+    background-color: rgb(4, 106, 208);
+    border: 2px solid white;
+    border-radius: 5px;
+    text-align: center;
+  }
+  
+  .left-menu li a {
+    text-decoration: none;
+    color: white;
+    display: block;
+    padding: 10px;
+    font-size: 16px;
+    align-items: center;
+  }
+  
+  .left-menu li.active {
+    background-color: rgb(6, 44, 85);
+    color: rgb(244, 245, 247);
+  }
+  
