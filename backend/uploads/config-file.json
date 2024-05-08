@@ -1,0 +1,60 @@
+[
+  {
+    "serviceLibrary": "Supporting Services", 
+    "serviceName": "DiameterLB",
+    "vCPU": 9999999,
+    "RAM": 9999999,
+    "TPS": 9999999
+  },
+  {
+    "serviceLibrary": "Supporting Services", 
+    "serviceName": "Sharanya",
+    "vCPU": 8888888,
+    "RAM": 88888888,
+    "TPS": 88888888
+  }, {
+    "serviceLibrary": "DSCE", 
+    "serviceName": "Shar",
+    "vCPU": 77777777,
+    "RAM": 777777777,
+    "TPS": 777777777
+  },
+  {
+    "serviceLibrary": "HSS",
+    "dependency": {
+      "mainService": "shar",
+      "mandatoryService": [ "lala"],
+      "optionalService": "Lawful Interception"
+    }
+  },
+  {
+    "serviceLibrary": "HSS",
+    "dependency": {
+      "mainService": "Hss_ims",
+      "mandatoryService": [ "lala"],
+      "optionalService": "Lawful Interception"
+    }
+  },
+  {
+    "serviceLibrary": "Sharanya",
+    "dependency": {
+      "mainService": "Ausf_ueAuth",
+      "mandatoryService": [ "lala"] 
+    }
+  },
+  {
+    "bundles": "VoNR",
+    "services": "saregamapa",
+    "optionalService": "Lawful Interception,mamamama"
+  },
+  {
+    "bundles": "Bengaluru",
+    "services": "Hss_ims"
+  },
+  {
+    "bundles": "VoNR",
+    "services": "Hss_auth",
+    "optionalService": "Ausf_niddau,breakingbad"
+}
+
+]

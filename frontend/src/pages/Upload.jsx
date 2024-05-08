@@ -33,8 +33,29 @@ function Upload() {
     setTarball(tarballFile);
   };
 
-  const handleJsonFileChange = (e) => {
+  const handleJsonFileChange = async(e) => {
     const file = e.target.files[0];
+    const formData = new FormData();
+    formData.append('file', file); // Assuming your backend expects the file with key 'file'
+  
+    try {
+      const response = await fetch('http://127.0.0.1:5000/upload', {
+        method: 'POST',
+        body: formData
+      });
+  
+      if (response.ok) {
+        // Handle success
+        console.log('File uploaded successfully');
+      } else {
+        // Handle error
+        console.error('File upload failed');
+      }
+    } catch (error) {
+      console.error('Error uploading file:', error);
+    }
+  
+    // Store jsonFileData
     const jsonFileData = {
       preview: URL.createObjectURL(file),
       data: file,

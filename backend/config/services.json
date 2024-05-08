@@ -1,121 +1,135 @@
 [
     {
-      "serviceLibrary": "Supporting Services",
-      "serviceName": "DiameterLB",
-      "vCPU": 4,
-      "RAM": 16,
-      "TPS": 10000
+        "serviceLibrary": "Supporting Services",
+        "serviceName": "DiameterLB",
+        "vCPU": 9999999,
+        "RAM": 9999999,
+        "TPS": 9999999
     },
     {
-      "serviceLibrary": "AUSF",
-      "serviceName": "Ausf_ueAuth",
-      "vCPU": 2,
-      "RAM": 8,
-      "TPS": 1000
+        "serviceLibrary": "AUSF",
+        "serviceName": "Ausf_ueAuth",
+        "vCPU": 2,
+        "RAM": 8,
+        "TPS": 1000
     },
     {
-      "serviceLibrary": "HSS",
-      "serviceName": "Hss_lte",
-      "vCPU": 2,
-      "RAM": 8,
-      "TPS": 1200
+        "serviceLibrary": "HSS",
+        "serviceName": "Hss_lte",
+        "vCPU": 2,
+        "RAM": 8,
+        "TPS": 1200
     },
     {
-      "serviceLibrary": "AUSF",
-      "serviceName": "Ausf_niddau",
-      "vCPU": 1,
-      "RAM": 4,
-      "TPS": 800
+        "serviceLibrary": "AUSF",
+        "serviceName": "Ausf_niddau",
+        "vCPU": 1,
+        "RAM": 4,
+        "TPS": 800
     },
     {
-      "serviceLibrary": "UDM",
-      "serviceName": "Udm_uecm",
-      "vCPU": 2,
-      "RAM": 8,
-      "TPS": 1200
+        "serviceLibrary": "UDM",
+        "serviceName": "Udm_uecm",
+        "vCPU": 2,
+        "RAM": 8,
+        "TPS": 1200
     },
     {
-      "serviceLibrary": "Supporting Services",
-      "serviceName": "Lawful Interception",
-      "vCPU": 1,
-      "RAM": 4,
-      "TPS": 5000
+        "serviceLibrary": "Supporting Services",
+        "serviceName": "Lawful Interception",
+        "vCPU": 1,
+        "RAM": 4,
+        "TPS": 5000
     },
     {
-      "serviceLibrary": "UDM",
-      "serviceName": "Udm_sdm",
-      "vCPU": 2,
-      "RAM": 8,
-      "TPS": 800
+        "serviceLibrary": "UDM",
+        "serviceName": "Udm_sdm",
+        "vCPU": 2,
+        "RAM": 8,
+        "TPS": 800
     },
     {
-      "serviceLibrary": "UDM",
-      "serviceName": "Udm_ueauth",
-      "vCPU": 2,
-      "RAM": 8,
-      "TPS": 1000
+        "serviceLibrary": "UDM",
+        "serviceName": "Udm_ueauth",
+        "vCPU": 2,
+        "RAM": 8,
+        "TPS": 1000
     },
     {
-      "serviceLibrary": "EIR",
-      "serviceName": "EIR_deviceCheck",
-      "vCPU": 2,
-      "RAM": 8,
-      "TPS": 3000
+        "serviceLibrary": "EIR",
+        "serviceName": "EIR_deviceCheck",
+        "vCPU": 2,
+        "RAM": 8,
+        "TPS": 3000
     },
     {
-      "serviceLibrary": "UDM",
-      "serviceName": "Udm_sidf",
-      "vCPU": 1,
-      "RAM": 4,
-      "TPS": 2000
+        "serviceLibrary": "UDM",
+        "serviceName": "Udm_sidf",
+        "vCPU": 1,
+        "RAM": 4,
+        "TPS": 2000
     },
     {
-      "serviceLibrary": "HSS",
-      "serviceName": "Hss_ims",
-      "vCPU": 2,
-      "RAM": 8,
-      "TPS": 1200
+        "serviceLibrary": "HSS",
+        "serviceName": "Hss_ims",
+        "vCPU": 2,
+        "RAM": 8,
+        "TPS": 1200
     },
     {
-      "serviceLibrary": "Supporting Services",
-      "serviceName": "HTTPLB",
-      "vCPU": 4,
-      "RAM": 16,
-      "TPS": 20000
+        "serviceLibrary": "Supporting Services",
+        "serviceName": "HTTPLB",
+        "vCPU": 4,
+        "RAM": 16,
+        "TPS": 20000
     },
     {
-      "serviceLibrary": "HLR",
-      "serviceName": "Hlr_callp",
-      "vCPU": 2,
-      "RAM": 8,
-      "TPS": 1200
+        "serviceLibrary": "HLR",
+        "serviceName": "Hlr_callp",
+        "vCPU": 2,
+        "RAM": 8,
+        "TPS": 1200
     },
     {
-      "serviceLibrary": "Supporting Services",
-      "serviceName": "Reg_trigger",
-      "vCPU": 1,
-      "RAM": 4,
-      "TPS": 12000
+        "serviceLibrary": "Supporting Services",
+        "serviceName": "Reg_trigger",
+        "vCPU": 1,
+        "RAM": 4,
+        "TPS": 12000
     },
     {
-      "serviceLibrary": "HLR",
-      "serviceName": "Hlr_auth",
-      "vCPU": 1,
-      "RAM": 4,
-      "TPS": 2000
+        "serviceLibrary": "HLR",
+        "serviceName": "Hlr_auth",
+        "vCPU": 1,
+        "RAM": 4,
+        "TPS": 2000
     },
     {
-      "serviceLibrary": "Supporting Services",
-      "serviceName": "SS7LB",
-      "vCPU": 4,
-      "RAM": 16,
-      "TPS": 10000
+        "serviceLibrary": "Supporting Services",
+        "serviceName": "SS7LB",
+        "vCPU": 4,
+        "RAM": 16,
+        "TPS": 10000
     },
     {
-      "serviceLibrary": "HSS",
-      "serviceName": "Hss_auth",
-      "vCPU": 1,
-      "RAM": 4,
-      "TPS": 2000
+        "serviceLibrary": "HSS",
+        "serviceName": "Hss_auth",
+        "vCPU": 1,
+        "RAM": 4,
+        "TPS": 2000
+    },
+    {
+        "serviceLibrary": "Supporting Services",
+        "serviceName": "Sharanya",
+        "vCPU": 8888888,
+        "RAM": 88888888,
+        "TPS": 88888888
+    },
+    {
+        "serviceLibrary": "DSCE",
+        "serviceName": "Shar",
+        "vCPU": 77777777,
+        "RAM": 777777777,
+        "TPS": 777777777
     }
-  ]
+]
