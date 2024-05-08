@@ -96,28 +96,11 @@
         "dependency": {
             "mainService": "Hss_ims",
             "mandatoryService": [
-                "lala"
+                "DiameterLB",
+                "Hss_auth",
+                "Reg_trigger"
             ],
             "optionalService": "Lawful Interception"
-        }
-    },
-    {
-        "serviceLibrary": "HSS",
-        "dependency": {
-            "mainService": "shar",
-            "mandatoryService": [
-                "lala"
-            ],
-            "optionalService": "Lawful Interception"
-        }
-    },
-    {
-        "serviceLibrary": "Sharanya",
-        "dependency": {
-            "mainService": "Ausf_ueAuth",
-            "mandatoryService": [
-                "lala"
-            ]
         }
     }
 ]
