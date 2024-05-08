@@ -1,0 +1,106 @@
+[
+    {
+        "serviceLibrary": "UDM",
+        "dependency": {
+            "mainService": "Udm_uecm",
+            "mandatoryService": [
+                "HTTPLB",
+                "Reg_trigger"
+            ]
+        }
+    },
+    {
+        "serviceLibrary": "AUSF",
+        "dependency": {
+            "mainService": "Ausf_niddau",
+            "mandatoryService": [
+                "HTTPLB"
+            ]
+        }
+    },
+    {
+        "serviceLibrary": "HLR",
+        "dependency": {
+            "mainService": "Hlr_auth",
+            "mandatoryService": [
+                "SS7LB"
+            ],
+            "optionalService": "Lawful Interception"
+        }
+    },
+    {
+        "serviceLibrary": "UDM",
+        "dependency": {
+            "mainService": "Udm_ueauth",
+            "mandatoryService": [
+                "HTTPLB",
+                "Udm_sidf"
+            ],
+            "optionalService": "Lawful Interception"
+        }
+    },
+    {
+        "serviceLibrary": "AUSF",
+        "dependency": {
+            "mainService": "Ausf_ueAuth",
+            "mandatoryService": [
+                "HTTPLB"
+            ],
+            "optionalService": "Lawful Interception"
+        }
+    },
+    {
+        "serviceLibrary": "HSS",
+        "dependency": {
+            "mainService": "Hss_lte",
+            "mandatoryService": [
+                "DiameterLB",
+                "Hss_auth",
+                "Reg_trigger"
+            ],
+            "optionalService": "Lawful Interception"
+        }
+    },
+    {
+        "serviceLibrary": "EIR",
+        "dependency": {
+            "mainService": "Eir_deviceCheck",
+            "mandatoryService": [
+                "HTTPLB"
+            ]
+        }
+    },
+    {
+        "serviceLibrary": "HLR",
+        "dependency": {
+            "mainService": "Hlr_callp",
+            "mandatoryService": [
+                "SS7LB",
+                "Reg_trigger"
+            ],
+            "optionalService": "Lawful Interception"
+        }
+    },
+    {
+        "serviceLibrary": "UDM",
+        "dependency": {
+            "mainService": "Udm_sdm",
+            "mandatoryService": [
+                "HTTPLB",
+                "Reg_trigger"
+            ]
+        }
+    },
+    {
+        "serviceLibrary": "HSS",
+        "dependency": {
+            "mainService": "Hss_ims",
+            "mandatoryService": [
+                "DiameterLB",
+                "Hss_auth",
+                "Reg_trigger"
+            ],
+            "optionalService": "Lawful Interception"
+        }
+    }
+]
