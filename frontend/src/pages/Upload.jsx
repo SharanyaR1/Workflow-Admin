@@ -11,6 +11,37 @@ function Upload() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setShowDialog(true);
+    const files = e.target.files;
+
+    if (!files || files.length < 2) {
+    console.error('Please upload both JSON file and tar ball.');
+    return;
+    }
+
+    const file = files[0];
+    const tar = files[1];
+
+    const formData = new FormData();
+
+    formData.append('file', file); // Assuming your backend expects the file with key 'file'
+    formData.append('tar', tar);
+    
+    try {
+      const response = await fetch('http://127.0.0.1:5000/upload', {
+        method: 'POST',
+        body: formData
+      });
+  
+      if (response.ok) {
+        // Handle success
+        console.log('Files uploaded successfully');
+      } else {
+        // Handle error
+        console.error('File upload failed');
+      }
+    } catch (error) {
+      console.error('Error uploading file:', error);
+    }
   };
 
   const handleDialogSubmit = async (e) => {
@@ -33,29 +64,8 @@ function Upload() {
     setTarball(tarballFile);
   };
 
-  const handleJsonFileChange = async(e) => {
+  const handleJsonFileChange = (e) => {
     const file = e.target.files[0];
-    const formData = new FormData();
-    formData.append('file', file); // Assuming your backend expects the file with key 'file'
-  
-    try {
-      const response = await fetch('http://127.0.0.1:5000/upload', {
-        method: 'POST',
-        body: formData
-      });
-  
-      if (response.ok) {
-        // Handle success
-        console.log('File uploaded successfully');
-      } else {
-        // Handle error
-        console.error('File upload failed');
-      }
-    } catch (error) {
-      console.error('Error uploading file:', error);
-    }
-  
-    // Store jsonFileData
     const jsonFileData = {
       preview: URL.createObjectURL(file),
       data: file,
