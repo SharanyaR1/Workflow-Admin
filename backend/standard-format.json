@@ -1,0 +1,37 @@
+ 
+[
+  
+    {
+     "serviceLibrary": "<string value>", 
+     "serviceName": "<string value>",
+     "vCPU": "<int value>",
+     "RAM": "<int value>",
+     "TPS": "<int  value>"
+   },
+   {
+     "serviceLibrary": "<string value>",
+     "dependency": {
+       "mainService": "<string value>",
+       "mandatoryService": [ "<list>"],
+       "optionalService": "<string value>"
+     }
+   },
+   {
+     "bundles": "<string value>",
+     "services": "<string value>",
+     "optionalService": [ "<list>"]
+   }
+   ,{
+    "serviceLibrary": "<string value>",
+    "dependency": {
+      "mainService": "<string value>",
+      "mandatoryService": [ "<list>"] 
+    }
+  },
+  {
+    "bundles": "<string value>",
+    "services": "<string value>"
+  }
+  
+ 
+ ]

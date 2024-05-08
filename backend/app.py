@@ -203,7 +203,7 @@ def upload_file():
 
     return 'File uploaded successfully and services updated.'
 
-@app.route('/download')
+@app.route('/download',methods=['POST'])
 def download():
     cwd=os.getcwd()
     path = os.path.join(cwd,'standard-format.json')
