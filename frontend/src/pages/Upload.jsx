@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { saveAs } from 'file-saver';
 import './Upload.css';
 
 function Upload() {
@@ -11,38 +12,70 @@ function Upload() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setShowDialog(true);
-    const files = e.target.files;
-
-    if (!files || files.length < 2) {
-    console.error('Please upload both JSON file and tar ball.');
-    return;
-    }
-
-    const file = files[0];
-    const tar = files[1];
-
-    const formData = new FormData();
-
-    formData.append('file', file); // Assuming your backend expects the file with key 'file'
-    formData.append('tar', tar);
-    
-    try {
-      const response = await fetch('http://127.0.0.1:5000/upload', {
-        method: 'POST',
-        body: formData
-      });
   
-      if (response.ok) {
-        // Handle success
-        console.log('Files uploaded successfully');
-      } else {
-        // Handle error
-        console.error('File upload failed');
+    // Upload tarball file
+    if (tarball.data) {
+      try {
+        const response = await uploadFile(tarball.data);
+        if (response.ok) {
+          console.log('Tar uploaded successfully');
+        } else {
+          console.error('Tar upload failed');
+        }
+      } catch (error) {
+        console.error('Error uploading tar:', error);
       }
-    } catch (error) {
-      console.error('Error uploading file:', error);
     }
+  
+    // Upload JSON file
+    if (jsonFile.data) {
+      try {
+        const response = await uploadFile(jsonFile.data);
+        if (response.ok) {
+          console.log('JSON file uploaded successfully');
+        } else {
+          console.error('JSON file upload failed');
+        }
+      } catch (error) {
+        console.error('Error uploading JSON file:', error);
+      }
+    }
+  
+    // Clear form and status
+    setTarball({ preview: '', data: '' });
+    setJsonFile({ preview: '', data: '' });
+    setStatus('');
+    setShowDialog(false);
   };
+  
+  const uploadFile = async (file) => {
+    const formData = new FormData();
+    formData.append('file', file);
+    formData.append('tar', file);
+    return fetch('http://127.0.0.1:5000/upload', {
+      method: 'POST',
+      body: formData
+    });
+  };
+  
+  const handleTarballChange = (e) => {
+    const file = e.target.files[0];
+    const tarballFile = {
+      preview: URL.createObjectURL(file),
+      data: file,
+    };
+    setTarball(tarballFile);
+  };
+  
+  const handleJsonFileChange = (e) => {
+    const file = e.target.files[0];
+    const jsonFileData = {
+      preview: URL.createObjectURL(file),
+      data: file,
+    };
+    setJsonFile(jsonFileData);
+  };
+  
 
   const handleDialogSubmit = async (e) => {
     e.preventDefault();
@@ -55,30 +88,32 @@ function Upload() {
     setShowDialog(false);
   };
 
-  const handleTarballChange = (e) => {
-    const file = e.target.files[0];
-    const tarballFile = {
-      preview: URL.createObjectURL(file),
-      data: file,
-    };
-    setTarball(tarballFile);
-  };
-
-  const handleJsonFileChange = (e) => {
-    const file = e.target.files[0];
-    const jsonFileData = {
-      preview: URL.createObjectURL(file),
-      data: file,
-    };
-    setJsonFile(jsonFileData);
-  };
-
   const handleChange = (e) => {
     setDockerCredentials({ ...dockerCredentials, [e.target.name]: e.target.value });
   };
 
   const handleCloseDialog = () => {
     setShowDialog(false);
+  };
+
+  const handledownloadButtonClick = async () => {
+    try {
+      const response = await fetch(`http://localhost:5000/download`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+  
+      if (!response.ok) {
+        throw new Error('Failed to download file');
+      }
+  
+      const blob = await response.blob();
+      saveAs(blob, 'standard-format.json');
+    } catch (error) {
+      console.error('Error downloading file:', error);
+    }
   };
 
   return (
@@ -98,7 +133,7 @@ function Upload() {
           <input type='file' name='jsonFile' onChange={handleJsonFileChange} />
         </div>
         <div className="upload-section">
-          <button onClick={downloadSampleFile}>Download Sample File</button>
+          <button onClick={handledownloadButtonClick}>Download Sample File</button>
         </div>
       </div>
       <button className="submit-button" onClick={handleSubmit}>Submit</button>
@@ -125,9 +160,6 @@ function Upload() {
   );
 }
 
-function downloadSampleFile() {
-  // Implement download logic here
-  console.log('Downloading sample file from backend...');
-}
+ 
 
 export default Upload;

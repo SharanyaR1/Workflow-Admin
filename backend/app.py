@@ -1,11 +1,14 @@
-from flask import Flask, request
+from flask import Flask, request,send_file
+from flask_cors import CORS
 import os
 import json
 from pathlib import Path
 from glob import glob
 import subprocess
 import docker
+
 app = Flask(__name__)
+CORS(app)  # This will enable CORS for all routes
 
 client=docker.from_env()
 #Function to update dependency.json file
@@ -15,19 +18,28 @@ def update_dependencies(config_file,tar,cwd):
         config_data = json.load(f)
     # IMAGE PATH
     pth =os.path.join(cwd,tar,"image/")
+    pth = os.path.normpath(pth)  # Normalize the path
     # CHART PATH
     htp=os.path.join(cwd,tar,"chart/")
-    print(pth)
-    imagetar=glob(pth+"*.tar")
-    image_name=imagetar[0].split('/')[-1]
-    print(image_name)
-    charttar=glob(htp+"*.tgz")
-    chart_name=charttar[0].split('/')[-1]
-    print(chart_name)
+    htp = os.path.normpath(htp)  # Normalize the path
+    print("Image path:",pth)
+    imagetar=glob(os.path.join(pth, "*.tar"))
+    print("Files found in image path:", imagetar)
+    if not imagetar:
+        print("No .tar files found in:", pth)
+        return
+    image_name = os.path.basename(imagetar[0])
+    print("Image name:", image_name)
+    charttar=glob(os.path.join(htp, "*.tgz"))
+    if not charttar:
+        print("No .tgz files found in:", htp)
+        return
+    chart_name = os.path.basename(charttar[0])
+    print("Chart name:", chart_name)
     
     
 
-    with open('backend/config/dependency.json', 'r+') as f:
+    with open('config/dependency.json', 'r+') as f:
         dependency_data = json.load(f)
 
         for item in config_data:
@@ -82,7 +94,7 @@ def update_bundles(config_file,tar):
     with open(config_file, 'r') as f:
         config_data = json.load(f)
 
-    with open('backend/config/bundle.json', 'r+') as f:
+    with open('config/bundle.json', 'r+') as f:
         bundles_data = json.load(f)
 
         for item in config_data:
@@ -125,7 +137,7 @@ def update_services(config_file,tar):
     with open(config_file, 'r') as f:
         config_data = json.load(f)
 
-    with open('backend/config/services.json', 'r+') as f:
+    with open('config/services.json', 'r+') as f:
         services_data = json.load(f)
 
         for item in config_data:
@@ -159,19 +171,23 @@ def main():
 #Function to upload the config file from the admin
 @app.route('/upload', methods=['POST'])
 def upload_file():
+    print(request.files)
     if 'file' not in request.files:
         return "No file part"
     file = request.files['file']
+    if 'tar' not in request.files:
+        return "No tar file part", 400
     tar=request.files['tar']
     if file.filename == '' or tar.filename == '':
         return 'No selected file'
     cwd=os.getcwd()
     # Save the file to the uploads directory
-    file_path = os.path.join('backend','uploads', file.filename)
+    file_path = os.path.join('uploads', file.filename)
     file.save(file_path)
-    tar_path = os.path.join('backend','uploads', tar.filename)
+    tar_path = os.path.join('uploads', tar.filename)
     tar.save(tar_path)
-    os.system("tar -xvf " + tar_path + " -C backend/uploads/") 
+    #os.system("tar -xvf " + tar_path + " -C backend/uploads/") 
+    os.system("tar -xvf uploads/"+tar.filename)
     # print(tar.filename)
     tar_name=Path(tar_path).stem
     #tar_name=os.path.join('uploads', tar_name)
@@ -186,6 +202,12 @@ def upload_file():
     update_bundles(file_path,tar_name)
 
     return 'File uploaded successfully and services updated.'
+
+@app.route('/download')
+def download():
+    cwd=os.getcwd()
+    path = os.path.join(cwd,'standard-format.json')
+    return send_file(path, as_attachment=True)
 
 if __name__ == '__main__':
     app.run(debug=True)
