@@ -8,7 +8,7 @@ const Home = () => {
     <h2>Admin Panel</h2>
       <div className="buttons-container">
         <Link to= "/Upload">
-          <button>Add new Service / modify Service</button>
+          <button>Add / Modify Service</button>
         </Link>
       </div>
     </div>
