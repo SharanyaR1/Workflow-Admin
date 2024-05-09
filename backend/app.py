@@ -1,11 +1,11 @@
 from flask import Flask, request,send_file
 from flask_cors import CORS
-import os
+import os,docker
 import json
 from pathlib import Path
 from glob import glob
 import subprocess
-import docker
+
 
 app = Flask(__name__)
 CORS(app)  # This will enable CORS for all routes
@@ -171,7 +171,7 @@ def main():
 #Function to upload the config file from the admin
 @app.route('/upload', methods=['POST'])
 def upload_file():
-    print(request.files)
+     
     if 'file' not in request.files:
         return "No file part"
     file = request.files['file']
@@ -184,22 +184,24 @@ def upload_file():
     # Save the file to the uploads directory
     file_path = os.path.join('uploads', file.filename)
     file.save(file_path)
-    tar_path = os.path.join('uploads', tar.filename)
+    print("The file path is: ",file_path)
+    tar_path = os.path.join('uploads', 'boss.tar') #hc
+    print("The tar path is: ",tar_path)
     tar.save(tar_path)
     #os.system("tar -xvf " + tar_path + " -C backend/uploads/") 
-    os.system("tar -xvf uploads/"+tar.filename)
-    # print(tar.filename)
+    os.system("tar -xvf "+tar_path)
+    print("tarfile name is: ",tar.filename) #error tar.filename
     tar_name=Path(tar_path).stem
     #tar_name=os.path.join('uploads', tar_name)
-    print(tar_name)
+    print("the tar name is:",tar_name)
     # Call the update_services function
     update_services(file_path,tar_name)
 
-    # Call the update_dependencies function
-    update_dependencies(file_path,tar_name,cwd)
-
     # Call the update_bundles function
     update_bundles(file_path,tar_name)
+
+    # Call the update_dependencies function
+    update_dependencies(file_path,tar_name,cwd)
 
     return 'File uploaded successfully and services updated.'
 
