@@ -11,6 +11,7 @@ app = Flask(__name__)
 CORS(app)  # This will enable CORS for all routes
 
 client=docker.from_env()
+
 #Function to update dependency.json file
 def update_dependencies(config_file,tar,cwd):
     print("in dep func")
@@ -55,12 +56,6 @@ def update_dependencies(config_file,tar,cwd):
                     # Overwrite existing dependency
                     dependency_data[existing_dependency_index]['dependency'] = dependency
                 else:
-                    # Add new dependency
-                    # out=os.system("docker load --input tar/image/"+imagetar)
-                    
-                    # process = subprocess.run("docker load "+cwd+tar+"/image/"+image_name,capture_output=True,text=True  )
-                    # process = subprocess.run("docker load --input boss/image/ss7lb.tar",capture_output=True,text=True  )
-                    # print(process)
                     with open(tar+'/image/'+image_name, 'rb') as g:
                         output = client.images.load(g.read())
                         print(output[0].tags[0])
@@ -86,9 +81,6 @@ def update_dependencies(config_file,tar,cwd):
 
 
  
-
-
-
 # Function to update the bundles.json file
 def update_bundles(config_file,tar):
     with open(config_file, 'r') as f:
@@ -132,6 +124,7 @@ def update_bundles(config_file,tar):
 
 
 
+
 #Function to update the sertar_filevices.json file
 def update_services(config_file,tar):
     with open(config_file, 'r') as f:
@@ -168,6 +161,8 @@ def main():
 
 
 
+
+
 #Function to upload the config file from the admin
 @app.route('/upload', methods=['POST'])
 def upload_file():
@@ -181,19 +176,19 @@ def upload_file():
     if file.filename == '' or tar.filename == '':
         return 'No selected file'
     cwd=os.getcwd()
+
     # Save the file to the uploads directory
     file_path = os.path.join('uploads', file.filename)
     file.save(file_path)
     print("The file path is: ",file_path)
-    tar_path = os.path.join('uploads', 'boss.tar') #hc
-    print("The tar path is: ",tar_path)
+
+    tar_path = os.path.join('uploads', tar.filename) #hc
     tar.save(tar_path)
-    #os.system("tar -xvf " + tar_path + " -C backend/uploads/") 
-    os.system("tar -xvf "+tar_path)
-    print("tarfile name is: ",tar.filename) #error tar.filename
+    print("The tar path is: ",tar_path)
+
+    os.system("tar -xvf uploads/"+tar.filename) #Untar
     tar_name=Path(tar_path).stem
-    #tar_name=os.path.join('uploads', tar_name)
-    print("the tar name is:",tar_name)
+
     # Call the update_services function
     update_services(file_path,tar_name)
 

@@ -9,53 +9,46 @@ function Upload() {
   const [dockerCredentials, setDockerCredentials] = useState({ id: '', password: '' });
   const [showDialog, setShowDialog] = useState(false);
 
+  const uploadFiles = async () => {
+    const formData = new FormData();
+    
+    // Append the tarball file
+    if (tarball.data) {
+      formData.append('tar', tarball.data);
+    }
+  
+    // Append the JSON file
+    if (jsonFile.data) {
+      formData.append('file', jsonFile.data);
+    }
+  
+    const options = {
+      method: 'POST',
+      body: formData
+    };
+  
+    try {
+      const response = await fetch('http://127.0.0.1:5000/upload', options);
+      const data = await response.json();
+      if (response.ok) {
+        console.log('Files uploaded successfully');
+      } else {
+        console.error('Files upload failed:', data.message);
+      }
+    } catch (error) {
+      console.error('Error uploading files:', error);
+    }
+  };
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
     setShowDialog(true);
-  
-    // Upload tarball file
-    if (tarball.data) {
-      try {
-        const response = await uploadFile(tarball.data);
-        if (response.ok) {
-          console.log('Tar uploaded successfully');
-        } else {
-          console.error('Tar upload failed');
-        }
-      } catch (error) {
-        console.error('Error uploading tar:', error);
-      }
-    }
-  
-    // Upload JSON file
-    if (jsonFile.data) {
-      try {
-        const response = await uploadFile(jsonFile.data);
-        if (response.ok) {
-          console.log('JSON file uploaded successfully');
-        } else {
-          console.error('JSON file upload failed');
-        }
-      } catch (error) {
-        console.error('Error uploading JSON file:', error);
-      }
-    }
-  
+    await uploadFiles();
     // Clear form and status
     setTarball({ preview: '', data: '' });
     setJsonFile({ preview: '', data: '' });
     setStatus('');
     setShowDialog(false);
-  };
-  
-  const uploadFile = async (file) => {
-    const formData = new FormData();
-    formData.append('file', file);
-    formData.append('tar', file);
-    return fetch('http://127.0.0.1:5000/upload', {
-      method: 'POST',
-      body: formData
-    });
   };
   
   const handleTarballChange = (e) => {
@@ -75,6 +68,8 @@ function Upload() {
     };
     setJsonFile(jsonFileData);
   };
+  
+  
   
 
   const handleDialogSubmit = async (e) => {
