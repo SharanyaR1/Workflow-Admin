@@ -1,6 +1,7 @@
 .home-page-container {
     text-align: center; 
     padding: 70px 0;
+    
   }
   
   h2 {
@@ -9,7 +10,7 @@
   }
   
   .buttons-container {
-    margin-top: 20px;
+    margin-top: 20px;    
   }
   
   button {

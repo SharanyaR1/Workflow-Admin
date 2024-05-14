@@ -10,6 +10,9 @@ const Home = () => {
         <Link to= "/Upload">
           <button>Add / Modify Service</button>
         </Link>
+        <Link to= "/Modify">
+          <button>Modify Bundle</button>
+        </Link>
       </div>
     </div>
   );

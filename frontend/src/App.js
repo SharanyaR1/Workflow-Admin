@@ -6,13 +6,13 @@ import Home from './pages/Home';
 import LeftMenu from './components/LeftMenu';
 import NavBar from './components/NavBar';
 import Upload from './pages/Upload';
- 
-
+import Modify from './pages/Modify';
 
 function App() {
   const pages =[
     { title: 'Home', path :'/'},
     { title: 'Upload', path: '/Upload' },
+    { title: 'Modify Bundle',path: '/Modify'},
  
   ]
   return (
@@ -28,7 +28,7 @@ function App() {
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/Upload" element={<Upload/>}/>
- 
+              <Route path="/Modify" element={<Modify/>}/> 
             </Routes>
           </div>
         </div>
