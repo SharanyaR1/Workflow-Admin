@@ -3,7 +3,7 @@ import { saveAs } from 'file-saver';
 import './Upload.css';
 
 function Modify() {
-  const [tarball, setTarball] = useState({ preview: '', data: '' });
+   
   const [jsonFile, setJsonFile] = useState({ preview: '', data: '' });
   const [status, setStatus] = useState('');
   const [dockerCredentials, setDockerCredentials] = useState({ id: '', password: '' });
@@ -12,10 +12,7 @@ function Modify() {
   const uploadFiles = async () => {
     const formData = new FormData();
     
-    // Append the tarball file
-    if (tarball.data) {
-      formData.append('tar', tarball.data);
-    }
+     
   
     // Append the JSON file
     if (jsonFile.data) {
@@ -28,7 +25,7 @@ function Modify() {
     };
   
     try {
-      const response = await fetch('http://127.0.0.1:5000/upload', options);
+      const response = await fetch('http://127.0.0.1:5001/upload', options);
       const data = await response.json();
       if (response.ok) {
         console.log('Files uploaded successfully');
@@ -45,20 +42,13 @@ function Modify() {
     setShowDialog(true);
     await uploadFiles();
     // Clear form and status
-    setTarball({ preview: '', data: '' });
+     
     setJsonFile({ preview: '', data: '' });
     setStatus('');
     setShowDialog(false);
   };
   
-  const handleTarballChange = (e) => {
-    const file = e.target.files[0];
-    const tarballFile = {
-      preview: URL.createObjectURL(file),
-      data: file,
-    };
-    setTarball(tarballFile);
-  };
+  
   
   const handleJsonFileChange = (e) => {
     const file = e.target.files[0];
@@ -77,7 +67,7 @@ function Modify() {
     // Process DockerHub credentials and file uploads here
     console.log('Submitting to DockerHub with ID:', dockerCredentials.id, 'and password:', dockerCredentials.password);
     // Clear form and status
-    setTarball({ preview: '', data: '' });
+     
     setJsonFile({ preview: '', data: '' });
     setStatus('');
     setShowDialog(false);
@@ -93,7 +83,7 @@ function Modify() {
 
   const handledownloadButtonClick = async () => {
     try {
-      const response = await fetch(`http://127.0.0.1:5000/download`, {
+      const response = await fetch(`http://127.0.0.1:5001/download`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -117,11 +107,7 @@ function Modify() {
       <h1>Upload to server</h1>
       <div className='upload'>
         
-        <div className="upload-section">
-          <h3>Upload Tarball</h3>
-          {tarball.preview && <img src={tarball.preview} alt="Tarball Preview" width='100' height='100' />}
-          <input type='file' name='tarballFile' onChange={handleTarballChange} />
-        </div>
+        
         <div className="upload-section">
           <h3>Upload JSON</h3>
           {jsonFile.preview && <img src={jsonFile.preview} alt="JSON Preview" width='100' height='100' />}
