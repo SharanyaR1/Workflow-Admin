@@ -1,0 +1,5 @@
+[{
+    "bundles": "<string value>",
+    "services": ["<list>"],
+    "optionalService": [ "<list>"]
+}]

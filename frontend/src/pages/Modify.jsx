@@ -25,7 +25,7 @@ function Modify() {
     };
   
     try {
-      const response = await fetch('http://127.0.0.1:5001/upload', options);
+      const response = await fetch('http://127.0.0.1:5006/upload', options);
       const data = await response.json();
       if (response.ok) {
         console.log('Files uploaded successfully');
@@ -40,12 +40,6 @@ function Modify() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setShowDialog(true);
-    await uploadFiles();
-    // Clear form and status
-     
-    setJsonFile({ preview: '', data: '' });
-    setStatus('');
-    setShowDialog(false);
   };
   
   
@@ -60,16 +54,15 @@ function Modify() {
   };
   
   
-  
 
   const handleDialogSubmit = async (e) => {
     e.preventDefault();
     // Process DockerHub credentials and file uploads here
     console.log('Submitting to DockerHub with ID:', dockerCredentials.id, 'and password:', dockerCredentials.password);
     // Clear form and status
-     
+    await uploadFiles();
     setJsonFile({ preview: '', data: '' });
-    setStatus('');
+    setDockerCredentials({ id: '', password: '' });
     setShowDialog(false);
   };
 
@@ -83,7 +76,7 @@ function Modify() {
 
   const handledownloadButtonClick = async () => {
     try {
-      const response = await fetch(`http://127.0.0.1:5001/download`, {
+      const response = await fetch(`http://127.0.0.1:5006/download`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -95,7 +88,7 @@ function Modify() {
       }
   
       const blob = await response.blob();
-      saveAs(blob, 'standard-format.json');
+      saveAs(blob, 'standard-bundle.json');
     } catch (error) {
       console.error('Error downloading file:', error);
     }

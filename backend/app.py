@@ -18,10 +18,10 @@ def update_dependencies(config_file,tar,cwd):
     with open(config_file, 'r') as f:
         config_data = json.load(f)
     # IMAGE PATH
-    pth =os.path.join(cwd,tar,"image/")
+    pth =os.path.join(cwd,tar,"images/")
     pth = os.path.normpath(pth)  # Normalize the path
     # CHART PATH
-    htp=os.path.join(cwd,tar,"chart/")
+    htp=os.path.join(cwd,tar,"charts/")
     htp = os.path.normpath(htp)  # Normalize the path
     print("Image path:",pth)
     imagetar=glob(os.path.join(pth, "*.tar"))
@@ -40,7 +40,7 @@ def update_dependencies(config_file,tar,cwd):
     
     
 
-    with open('config/dependency.json', 'r+') as f:
+    with open('C:\\Users\\shara\\Desktop\\Nokia_main\\Nokia_DSA\\dimensioningbackend\\config\\dimensioning-services.services-dependency.json', 'r+') as f:
         dependency_data = json.load(f)
 
         for item in config_data:
@@ -60,11 +60,11 @@ def update_dependencies(config_file,tar,cwd):
                         output = client.images.load(g.read())
                         print(output[0].tags[0])
                     
-                    os.system("docker tag "+output[0].tags[0]+" abbashozefa/"+mainService+":latest")
+                    os.system("docker tag "+output[0].tags[0]+" dsanokia/"+mainService+":latest")
                     
-                    os.system("docker push abbashozefa/"+mainService+":latest")
+                    os.system("docker push dsanokia/"+mainService+":latest")
 
-                    os.system("helm push "+tar+'/chart/'+chart_name+" oci://registry-1.docker.io/abbashozefa/")
+                    os.system("helm push "+tar+'/chart/'+chart_name+" oci://registry-1.docker.io/dsanokia/")
                     
                     dependency_data.append({
                         "serviceLibrary": serviceLibrary,
@@ -79,50 +79,7 @@ def update_dependencies(config_file,tar,cwd):
         f.truncate()
 
 
-
- 
-# Function to update the bundles.json file
-def update_bundles(config_file,tar):
-    with open(config_file, 'r') as f:
-        config_data = json.load(f)
-
-    with open('config/bundle.json', 'r+') as f:
-        bundles_data = json.load(f)
-
-        for item in config_data:
-            if 'bundles' in item:
-                bundle_name = item.get('bundles')
-                services = item.get('services')
-                optional_service = item.get('optionalService')
-
-                existing_bundle = next((bundle for bundle in bundles_data if bundle.get('bundles') == bundle_name), None)
-                print(existing_bundle)
-                if existing_bundle is None:
-                    # Add new bundle if not present
-                    bundles_data.append(item)
-                else:
-                    # Check if services match
-                    existing_services = [bundle['services'] for bundle in bundles_data if bundle.get('bundles') == bundle_name]
-                    existing_optservices = [bundle['optionalService'] for bundle in bundles_data if bundle.get('bundles') == bundle_name]
-                    print(existing_services)
-                    if services not in existing_services[0]:
-                        # If services don't match, add a new item
-                        # bundles_data.append(item)
-                        existing_bundle['services'].append(services)
-                    if optional_service not in existing_optservices[0]:
-                        # If services match, update optionalService
-                        # existing_update=[bundle['services'] for bundle in bundles_data if bundle.get('bundles') == bundle_name]
-                        existing_bundle['optionalService'].append(optional_service)
-                       
-
-        # Move pointer to the beginning of the file
-        f.seek(0)
-        # Write updated bundles data back to bundles.json
-        json.dump(bundles_data, f, indent=4)
-        # Truncate the file to remove any remaining content
-        f.truncate()
-
-
+#Function to update bundles in in bundleUpload.py file
 
 
 #Function to update the sertar_filevices.json file
@@ -130,7 +87,7 @@ def update_services(config_file,tar):
     with open(config_file, 'r') as f:
         config_data = json.load(f)
 
-    with open('config/services.json', 'r+') as f:
+    with open('C:\\Users\\shara\\Desktop\\Nokia_main\\Nokia_DSA\\dimensioningbackend\\config\\dimensioning-services.services-req.json', 'r+') as f:
         services_data = json.load(f)
 
         for item in config_data:
@@ -158,10 +115,7 @@ def update_services(config_file,tar):
 @app.route('/')
 def main():
     return "Hello, welcome to the file upload page!"
-
-
-
-
+ 
 
 #Function to upload the config file from the admin
 @app.route('/upload', methods=['POST'])
@@ -192,9 +146,6 @@ def upload_file():
     # Call the update_services function
     update_services(file_path,tar_name)
 
-    # Call the update_bundles function
-    update_bundles(file_path,tar_name)
-
     # Call the update_dependencies function
     update_dependencies(file_path,tar_name,cwd)
 
@@ -207,4 +158,4 @@ def download():
     return send_file(path, as_attachment=True)
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True,port=5005)

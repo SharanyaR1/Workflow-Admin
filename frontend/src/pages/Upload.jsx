@@ -12,12 +12,10 @@ function Upload() {
   const uploadFiles = async () => {
     const formData = new FormData();
     
-    // Append the tarball file
     if (tarball.data) {
       formData.append('tar', tarball.data);
     }
   
-    // Append the JSON file
     if (jsonFile.data) {
       formData.append('file', jsonFile.data);
     }
@@ -28,27 +26,24 @@ function Upload() {
     };
   
     try {
-      const response = await fetch('http://127.0.0.1:5000/upload', options);
+      const response = await fetch('http://127.0.0.1:5005/upload', options);
       const data = await response.json();
       if (response.ok) {
         console.log('Files uploaded successfully');
+        setStatus('Files uploaded successfully');
       } else {
         console.error('Files upload failed:', data.message);
+        setStatus('Files upload failed: ' + data.message);
       }
     } catch (error) {
       console.error('Error uploading files:', error);
+      setStatus('Error uploading files: ' + error.message);
     }
   };
   
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     setShowDialog(true);
-    await uploadFiles();
-    // Clear form and status
-    setTarball({ preview: '', data: '' });
-    setJsonFile({ preview: '', data: '' });
-    setStatus('');
-    setShowDialog(false);
   };
   
   const handleTarballChange = (e) => {
@@ -69,17 +64,13 @@ function Upload() {
     setJsonFile(jsonFileData);
   };
   
-  
-  
-
   const handleDialogSubmit = async (e) => {
     e.preventDefault();
-    // Process DockerHub credentials and file uploads here
     console.log('Submitting to DockerHub with ID:', dockerCredentials.id, 'and password:', dockerCredentials.password);
-    // Clear form and status
+    await uploadFiles();
     setTarball({ preview: '', data: '' });
     setJsonFile({ preview: '', data: '' });
-    setStatus('');
+    setDockerCredentials({ id: '', password: '' });
     setShowDialog(false);
   };
 
@@ -93,7 +84,7 @@ function Upload() {
 
   const handledownloadButtonClick = async () => {
     try {
-      const response = await fetch(`http://127.0.0.1:5000/download`, {
+      const response = await fetch(`http://127.0.0.1:5005/download`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -112,11 +103,9 @@ function Upload() {
   };
 
   return (
-    
     <div className='upload-container'>
       <h1>Upload to server</h1>
       <div className='upload'>
-        
         <div className="upload-section">
           <h3>Upload Tarball</h3>
           {tarball.preview && <img src={tarball.preview} alt="Tarball Preview" width='100' height='100' />}
@@ -134,27 +123,24 @@ function Upload() {
       <button className="submit-button" onClick={handleSubmit}>Submit</button>
 
       {showDialog && (
-  <div className="dialog-overlay">
-    <div className="dialog">
-      <span className="close" onClick={handleCloseDialog}>&times;</span>
-      <h2>Enter DockerHub Credentials</h2>
-      <form onSubmit={handleDialogSubmit}>
-        <label htmlFor="dockerId">DockerHub ID:</label>
-        <input type="text" id="dockerId" name="id" value={dockerCredentials.id} onChange={handleChange} required />
-        <label htmlFor="dockerPassword">DockerHub Password:</label>
-        <input type="password" id="dockerPassword" name="password" value={dockerCredentials.password} onChange={handleChange} required />
-        <div className="dialog-buttons">
-          <button type="submit">Submit</button>
+        <div className="dialog-overlay">
+          <div className="dialog">
+            <span className="close" onClick={handleCloseDialog}>&times;</span>
+            <h2>Enter DockerHub Credentials</h2>
+            <form onSubmit={handleDialogSubmit}>
+              <label htmlFor="dockerId">DockerHub ID:</label>
+              <input type="text" id="dockerId" name="id" value={dockerCredentials.id} onChange={handleChange} required />
+              <label htmlFor="dockerPassword">DockerHub Password:</label>
+              <input type="password" id="dockerPassword" name="password" value={dockerCredentials.password} onChange={handleChange} required />
+              <div className="dialog-buttons">
+                <button type="submit">Submit</button>
+              </div>
+            </form>
+          </div>
         </div>
-      </form>
-    </div>
-  </div>
-)}
-
+      )}
     </div>
   );
 }
-
- 
 
 export default Upload;

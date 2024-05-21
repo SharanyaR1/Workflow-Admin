@@ -16,21 +16,12 @@
        "optionalService": "<string value>"
      }
    },
-   {
-     "bundles": "<string value>",
-     "services": "<string value>",
-     "optionalService": [ "<list>"]
-   }
-   ,{
+  {
     "serviceLibrary": "<string value>",
     "dependency": {
       "mainService": "<string value>",
       "mandatoryService": [ "<list>"] 
     }
-  },
-  {
-    "bundles": "<string value>",
-    "services": "<string value>"
   }
   
  

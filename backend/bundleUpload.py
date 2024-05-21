@@ -14,7 +14,7 @@ def update_bundles(config_file):
     with open(config_file, 'r') as f:
         config_data = json.load(f)
 
-    with open('config/bundle.json', 'r+') as f:
+    with open('C:\\Users\\shara\\Desktop\\Nokia_main\\Nokia_DSA\\dimensioningbackend\\config\\servicesBundle.json', 'r+') as f:
         bundles_data = json.load(f)
 
         for item in config_data:
@@ -79,5 +79,11 @@ def upload_file():
 
     return 'File uploaded successfully and services updated.'
 
+@app.route('/download',methods=['POST'])
+def download():
+    cwd=os.getcwd()
+    path = os.path.join(cwd,'standard-bundle.json')
+    return send_file(path, as_attachment=True)
+
 if __name__ == '__main__':
-    app.run(port=5001,debug=True)
+    app.run(port=5006,debug=True)
