@@ -101,12 +101,12 @@ function Modify() {
       <div className='upload'>
         
         
-        <div className="upload-section">
+        <div className="upload-sectionn">
           <h3>Upload JSON</h3>
           {jsonFile.preview && <img src={jsonFile.preview} alt="JSON Preview" width='100' height='100' />}
           <input type='file' name='jsonFile' onChange={handleJsonFileChange} />
         </div>
-        <div className="upload-section">
+        <div className="upload-sectionn">
           <button onClick={handledownloadButtonClick}>Download Sample File</button>
         </div>
       </div>

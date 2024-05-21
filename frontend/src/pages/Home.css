@@ -1,7 +1,9 @@
 .home-page-container {
     text-align: center; 
     padding: 70px 0;
-    
+    max-width: auto;
+    height: auto;
+    padding: 100px 100px 100px 450px;
   }
   
   h2 {
