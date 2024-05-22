@@ -117,7 +117,7 @@ function Upload() {
           <input type='file' name='jsonFile' onChange={handleJsonFileChange} />
         </div>
       </div>
-      
+      <button className="submit-button" onClick={handleSubmit}>Submit</button>
       <div className="upload-section">
           <button onClick={handledownloadButtonClick}>Download Sample File</button>
       </div>
