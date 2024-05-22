@@ -11,8 +11,8 @@ import Modify from './pages/Modify';
 function App() {
   const pages =[
     { title: 'Home', path :'/'},
-    { title: 'Upload', path: '/Upload' },
-    { title: 'Modify Bundle',path: '/Modify'},
+    { title: 'Upload Artifacts', path: '/Upload' },
+    { title: 'Manage Bundle',path: '/Modify'},
  
   ]
   return (

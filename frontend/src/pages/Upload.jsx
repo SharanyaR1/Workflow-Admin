@@ -104,7 +104,7 @@ function Upload() {
 
   return (
     <div className='upload-container'>
-      <h1>Upload to server</h1>
+      <h1>Upload Artifacts</h1>
       <div className='upload'>
         <div className="upload-sectionn">
           <h3>Upload Tarball</h3>
@@ -117,10 +117,11 @@ function Upload() {
           <input type='file' name='jsonFile' onChange={handleJsonFileChange} />
         </div>
       </div>
+      
       <div className="upload-section">
           <button onClick={handledownloadButtonClick}>Download Sample File</button>
       </div>
-      <button className="submit-button" onClick={handleSubmit}>Submit</button>
+      
 
       {showDialog && (
         <div className="dialog-overlay">
