@@ -13,6 +13,7 @@ function App() {
     { title: 'Home', path :'/'},
     { title: 'Upload Artifacts', path: '/Upload' },
     { title: 'Manage Bundle',path: '/Modify'},
+    { title: 'Service provider',path :'http://localhost:3001'}
  
   ]
   return (
