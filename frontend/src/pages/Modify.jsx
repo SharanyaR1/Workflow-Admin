@@ -3,7 +3,6 @@ import { saveAs } from 'file-saver';
 import './Upload.css';
 
 function Modify() {
-   
   const [jsonFile, setJsonFile] = useState({ preview: '', data: '' });
   const [status, setStatus] = useState('');
   const [dockerCredentials, setDockerCredentials] = useState({ id: '', password: '' });
@@ -12,9 +11,6 @@ function Modify() {
   const uploadFiles = async () => {
     const formData = new FormData();
     
-     
-  
-    // Append the JSON file
     if (jsonFile.data) {
       formData.append('file', jsonFile.data);
     }
@@ -41,9 +37,7 @@ function Modify() {
     e.preventDefault();
     setShowDialog(true);
   };
-  
-  
-  
+
   const handleJsonFileChange = (e) => {
     const file = e.target.files[0];
     const jsonFileData = {
@@ -52,14 +46,9 @@ function Modify() {
     };
     setJsonFile(jsonFileData);
   };
-  
-  
 
   const handleDialogSubmit = async (e) => {
     e.preventDefault();
-    // Process DockerHub credentials and file uploads here
-    console.log('Submitting to DockerHub with ID:', dockerCredentials.id, 'and password:', dockerCredentials.password);
-    // Clear form and status
     await uploadFiles();
     setJsonFile({ preview: '', data: '' });
     setDockerCredentials({ id: '', password: '' });
@@ -95,45 +84,41 @@ function Modify() {
   };
 
   return (
-    
-    <div className='upload-container'>
-      <h1>Upload to server</h1>
-      <div className='upload'>
-        
-        
-        <div className="upload-sectionn">
-          <h3>Upload JSON</h3>
-          {jsonFile.preview && <img src={jsonFile.preview} alt="JSON Preview" width='100' height='100' />}
-          <input type='file' name='jsonFile' onChange={handleJsonFileChange} />
+    <div className="wrapper">
+      <div className="upload-containerr">
+        <h1>Upload to server</h1>
+        <div className="upload">
+          <div className="upload-sectionn">
+            <h3>Upload JSON</h3>
+            {jsonFile.preview && <img src={jsonFile.preview} alt="JSON Preview" width="100" height="100" />}
+            <input type="file" name="jsonFile" onChange={handleJsonFileChange} />
+          </div>
+          <div className="upload-section">
+            <button onClick={handledownloadButtonClick}>Download Sample File</button>
+          </div>
         </div>
-        <div className="upload-sectionn">
-          <button onClick={handledownloadButtonClick}>Download Sample File</button>
-        </div>
+        <button className="submit-button" onClick={handleSubmit}>Submit</button>
+        
+        {showDialog && (
+          <div className="dialog-overlay">
+            <div className="dialog">
+              <span className="close" onClick={handleCloseDialog}>&times;</span>
+              <h2>Enter DockerHub Credentials</h2>
+              <form onSubmit={handleDialogSubmit}>
+                <label htmlFor="dockerId">DockerHub ID:</label>
+                <input type="text" id="dockerId" name="id" value={dockerCredentials.id} onChange={handleChange} required />
+                <label htmlFor="dockerPassword">DockerHub Password:</label>
+                <input type="password" id="dockerPassword" name="password" value={dockerCredentials.password} onChange={handleChange} required />
+                <div className="dialog-buttons">
+                  <button type="submit">Submit</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        )}
       </div>
-      <button className="submit-button" onClick={handleSubmit}>Submit</button>
-
-      {showDialog && (
-  <div className="dialog-overlay">
-    <div className="dialog">
-      <span className="close" onClick={handleCloseDialog}>&times;</span>
-      <h2>Enter DockerHub Credentials</h2>
-      <form onSubmit={handleDialogSubmit}>
-        <label htmlFor="dockerId">DockerHub ID:</label>
-        <input type="text" id="dockerId" name="id" value={dockerCredentials.id} onChange={handleChange} required />
-        <label htmlFor="dockerPassword">DockerHub Password:</label>
-        <input type="password" id="dockerPassword" name="password" value={dockerCredentials.password} onChange={handleChange} required />
-        <div className="dialog-buttons">
-          <button type="submit">Submit</button>
-        </div>
-      </form>
-    </div>
-  </div>
-)}
-
     </div>
   );
 }
-
- 
 
 export default Modify;

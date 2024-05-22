@@ -103,43 +103,46 @@ function Upload() {
   };
 
   return (
-    <div className='upload-container'>
-      <h1>Upload Artifacts</h1>
-      <div className='upload'>
-        <div className="upload-sectionn">
-          <h3>Upload Tarball</h3>
-          {tarball.preview && <img src={tarball.preview} alt="Tarball Preview" width='100' height='100' />}
-          <input type='file' name='tarballFile' onChange={handleTarballChange} />
+    <div className="wrapper">
+      <div className='upload-container'>
+        <div className='heading-container'>
+          <h1>Upload to server</h1>
         </div>
-        <div className="upload-sectionn">
-          <h3>Upload JSON</h3>
-          {jsonFile.preview && <img src={jsonFile.preview} alt="JSON Preview" width='100' height='100' />}
-          <input type='file' name='jsonFile' onChange={handleJsonFileChange} />
-        </div>
-      </div>
-      <button className="submit-button" onClick={handleSubmit}>Submit</button>
-      <div className="upload-section">
-          <button onClick={handledownloadButtonClick}>Download Sample File</button>
-      </div>
-      
-
-      {showDialog && (
-        <div className="dialog-overlay">
-          <div className="dialog">
-            <span className="close" onClick={handleCloseDialog}>&times;</span>
-            <h2>Enter DockerHub Credentials</h2>
-            <form onSubmit={handleDialogSubmit}>
-              <label htmlFor="dockerId">DockerHub ID:</label>
-              <input type="text" id="dockerId" name="id" value={dockerCredentials.id} onChange={handleChange} required />
-              <label htmlFor="dockerPassword">DockerHub Password:</label>
-              <input type="password" id="dockerPassword" name="password" value={dockerCredentials.password} onChange={handleChange} required />
-              <div className="dialog-buttons">
-                <button type="submit">Submit</button>
-              </div>
-            </form>
+        <div className='upload'>
+          <div className="upload-sectionn">
+            <h3>Upload Tarball</h3>
+            {tarball.preview && <img src={tarball.preview} alt="Tarball Preview" width='100' height='100' />}
+            <input type='file' name='tarballFile' onChange={handleTarballChange} />
+          </div>
+          <div className="upload-sectionn">
+            <h3>Upload JSON</h3>
+            {jsonFile.preview && <img src={jsonFile.preview} alt="JSON Preview" width='100' height='100' />}
+            <input type='file' name='jsonFile' onChange={handleJsonFileChange} />
           </div>
         </div>
-      )}
+        <button className="submit-button" onClick={handleSubmit}>Submit</button>
+        <div className="upload-section">
+          <button onClick={handledownloadButtonClick}>Download Sample File</button>
+        </div>
+        
+        {showDialog && (
+          <div className="dialog-overlay">
+            <div className="dialog">
+              <span className="close" onClick={handleCloseDialog}>&times;</span>
+              <h2>Enter DockerHub Credentials</h2>
+              <form onSubmit={handleDialogSubmit}>
+                <label htmlFor="dockerId">DockerHub ID:</label>
+                <input type="text" id="dockerId" name="id" value={dockerCredentials.id} onChange={handleChange} required />
+                <label htmlFor="dockerPassword">DockerHub Password:</label>
+                <input type="password" id="dockerPassword" name="password" value={dockerCredentials.password} onChange={handleChange} required />
+                <div className="dialog-buttons">
+                  <button type="submit">Submit</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        )}
+      </div>
     </div>
   );
 }
