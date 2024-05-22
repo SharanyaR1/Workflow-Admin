@@ -56,7 +56,7 @@ def update_dependencies(config_file,tar,cwd):
                     # Overwrite existing dependency
                     dependency_data[existing_dependency_index]['dependency'] = dependency
                 else:
-                    with open(tar+'/image/'+image_name, 'rb') as g:
+                    with open(tar+'/images/'+image_name, 'rb') as g:
                         output = client.images.load(g.read())
                         print(output[0].tags[0])
                     
@@ -64,7 +64,7 @@ def update_dependencies(config_file,tar,cwd):
                     
                     os.system("docker push dsanokia/"+mainService+":latest")
 
-                    os.system("helm push "+tar+'/chart/'+chart_name+" oci://registry-1.docker.io/dsanokia/")
+                    os.system("helm push "+tar+'/charts/'+chart_name+" oci://registry-1.docker.io/dsanokia/")
                     
                     dependency_data.append({
                         "serviceLibrary": serviceLibrary,
@@ -83,9 +83,31 @@ def update_dependencies(config_file,tar,cwd):
 
 
 #Function to update the sertar_filevices.json file
-def update_services(config_file,tar):
+def update_services(config_file,tar,cwd):
+    print("In service function")
     with open(config_file, 'r') as f:
         config_data = json.load(f)
+
+    # IMAGE PATH
+    pth =os.path.join(cwd,tar,"images/")
+    pth = os.path.normpath(pth)  # Normalize the path
+    # CHART PATH
+    htp=os.path.join(cwd,tar,"charts/")
+    htp = os.path.normpath(htp)  # Normalize the path
+    print("Image path:",pth)
+    imagetar=glob(os.path.join(pth, "*.tar"))
+    print("Files found in image path:", imagetar)
+    if not imagetar:
+        print("No .tar files found in:", pth)
+        return
+    image_name = os.path.basename(imagetar[0])
+    print("Image name:", image_name)
+    charttar=glob(os.path.join(htp, "*.tgz"))
+    if not charttar:
+        print("No .tgz files found in:", htp)
+        return
+    chart_name = os.path.basename(charttar[0])
+    print("Chart name:", chart_name)
 
     with open('C:\\Users\\shara\\Desktop\\Nokia_main\\Nokia_DSA\\dimensioningbackend\\config\\dimensioning-services.services-req.json', 'r+') as f:
         services_data = json.load(f)
@@ -104,6 +126,16 @@ def update_services(config_file,tar):
                 else:
                     # Add new service
                     services_data.append(item)
+                    with open(tar+'/images/'+image_name, 'rb') as g:
+                        output = client.images.load(g.read())
+                        print(output[0].tags[0])
+                    
+                    os.system("docker tag "+output[0].tags[0]+" dsanokia/"+serviceName+":latest")
+                    
+                    os.system("docker push dsanokia/"+serviceName+":latest")
+
+                    os.system("helm push "+tar+'/charts/'+chart_name+" oci://registry-1.docker.io/dsanokia/")
+                    
 
         # Move pointer to the beginning of the file
         f.seek(0)
@@ -144,7 +176,7 @@ def upload_file():
     tar_name=Path(tar_path).stem
 
     # Call the update_services function
-    update_services(file_path,tar_name)
+    update_services(file_path,tar_name,cwd)
 
     # Call the update_dependencies function
     update_dependencies(file_path,tar_name,cwd)
