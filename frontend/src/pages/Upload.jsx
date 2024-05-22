@@ -106,7 +106,7 @@ function Upload() {
     <div className="wrapper">
       <div className='upload-container'>
         <div className='heading-container'>
-          <h1>Upload to server</h1>
+          <h1>Upload Artifacts</h1>
         </div>
         <div className='upload'>
           <div className="upload-sectionn">

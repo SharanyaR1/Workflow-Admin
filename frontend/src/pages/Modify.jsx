@@ -86,18 +86,18 @@ function Modify() {
   return (
     <div className="wrapper">
       <div className="upload-containerr">
-        <h1>Upload to server</h1>
+        <h1>Upload Bundle Config</h1>
         <div className="upload">
           <div className="upload-sectionn">
             <h3>Upload JSON</h3>
             {jsonFile.preview && <img src={jsonFile.preview} alt="JSON Preview" width="100" height="100" />}
             <input type="file" name="jsonFile" onChange={handleJsonFileChange} />
           </div>
-          <div className="upload-section">
-            <button onClick={handledownloadButtonClick}>Download Sample File</button>
-          </div>
         </div>
         <button className="submit-button" onClick={handleSubmit}>Submit</button>
+        <div className="upload-section">
+            <button onClick={handledownloadButtonClick}>Download Sample File</button>
+        </div>
         
         {showDialog && (
           <div className="dialog-overlay">

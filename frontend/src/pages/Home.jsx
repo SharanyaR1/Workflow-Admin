@@ -11,7 +11,7 @@ const Home = () => {
           <button>Add / Modify Service</button>
         </Link>
         <Link to= "/Modify">
-          <button>Modify Bundle</button>
+          <button>Manage Bundles</button>
         </Link>
       </div>
     </div>

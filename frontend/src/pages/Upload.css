@@ -24,8 +24,8 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 500px;
-  height: 300px;
+  width: 400px;
+  height: 350px;
   padding: 10px; /* Padding to separate content from the wrapper edges */
   background-color: rgb(236, 226, 208) ;/* Background color for the upload container */
   border-radius: 8px;
