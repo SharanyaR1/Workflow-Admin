@@ -14,7 +14,7 @@ def update_bundles(config_file):
     with open(config_file, 'r') as f:
         config_data = json.load(f)
 
-    with open('C:\\Users\\shara\\Desktop\\Nokia_main\\Nokia_DSA\\dimensioningbackend\\config\\servicesBundle.json', 'r+') as f:
+    with open('/home/anisha7/Videos/latest/Nokia_DSA/dimensioningbackend/config/servicesBundle.json', 'r+') as f:
         bundles_data = json.load(f)
 
         for item in config_data:

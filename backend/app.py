@@ -39,8 +39,8 @@ def update_dependencies(config_file,tar,cwd):
     print("Chart name:", chart_name)
     
     
-
-    with open('C:\\Users\\shara\\Desktop\\Nokia_main\\Nokia_DSA\\dimensioningbackend\\config\\dimensioning-services.services-dependency.json', 'r+') as f:
+    #/home/anisha7/Videos/latest/Nokia_DSA/dimensioningbackend/config/dimensioning-services.services-req.json
+    with open('/home/anisha7/Videos/latest/Nokia_DSA/dimensioningbackend/config/dimensioning-services.services-req.json', 'r+') as f:
         dependency_data = json.load(f)
 
         for item in config_data:
@@ -109,7 +109,8 @@ def update_services(config_file,tar,cwd):
     chart_name = os.path.basename(charttar[0])
     print("Chart name:", chart_name)
 
-    with open('C:\\Users\\shara\\Desktop\\Nokia_main\\Nokia_DSA\\dimensioningbackend\\config\\dimensioning-services.services-req.json', 'r+') as f:
+    #/home/anisha7/Videos/latest/Nokia_DSA/dimensioningbackend/config/dimensioning-services.services-dependency.json
+    with open('/home/anisha7/Videos/latest/Nokia_DSA/dimensioningbackend/config/dimensioning-services.services-dependency.json', 'r+') as f:
         services_data = json.load(f)
 
         for item in config_data:
